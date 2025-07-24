@@ -1,0 +1,7 @@
+target/**
+.idea/**
+.env
+# Maven / Gradle build folders
+target/
+build/
+out/

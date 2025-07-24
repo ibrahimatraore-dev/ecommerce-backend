@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:14.10-alpine3.18
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/nginx:/etc/nginx
+    depends_on:
+      - dmp-api
+    networks:
+      - app-network
+
+  dmp-api:
+    image: ramiosmaninventiv/dmp-backend:latest
+    environment:
+      DB_HOST:     postgres
+      DB_NAME    : ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET:  ${JWT_SECRET}
+      DATABRICKS_API_URL: ${DATABRICKS_API_URL}
+      DATABRICKS_API_KEY: ${DATABRICKS_API_KEY}
+      ALLOWED_ORIGIN    : ${ALLOWED_ORIGIN}
+    expose:
+      - "8080"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

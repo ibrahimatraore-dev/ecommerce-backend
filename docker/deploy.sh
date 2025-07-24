@@ -1,0 +1,1 @@
+docker buildx build --platform linux/amd64,linux/arm64 -t ramiosmaninventiv/dmp-backend:latest --push .

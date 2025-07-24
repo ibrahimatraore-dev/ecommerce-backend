@@ -1,0 +1,81 @@
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+  endpoint.health.probes.enabled: true
+spring:
+  main:
+    banner-mode: "off"
+    allow-bean-definition-overriding: true
+  application:
+    name: alten
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      cachePrepStmts: true
+      prepStmtCacheSize: 250
+      prepStmtCacheSqlLimit: 2048
+      maximumPoolSize: 20
+      poolName: ALTENJdbcPool
+  jpa:
+    show-sql: false
+    database: POSTGRESQL
+    open-in-view: false
+    hibernate:
+      show-sql: true
+      properties:
+        hibernate.jdbc.lob.non_contextual_creation: true
+        hibernate.temp.use_jdbc_metadata_defaults: false
+        hibernate.enable_lazy_load_no_trans: true
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  messages:
+    cache-duration: 1
+  mvc:
+    pathmatch:
+      matching-strategy: "ant_path_matcher"
+  liquibase:
+    change-log: classpath:/liquibase/db.changelog-master.xml
+    contexts: dev,prod
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+    min-response-size: 1024
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+      file-size-threshold: 0
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+application:
+  version: 2.0.24
+  env: dev
+  id_client: ALTEN_LOCAL
+  url_base_app: http://localhost
+  api_key: test
+  jwt_secret: ${JWT_SECRET} # ex. rmfq99uN-@*9%UN^$werg_fewgerw0
+
+springdoc:
+  packages-to-scan: alten-Ecommerce-api.web.rest  # Replace with your package to scan
+  paths-to-match: /** # Adjust path matching as needed
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api

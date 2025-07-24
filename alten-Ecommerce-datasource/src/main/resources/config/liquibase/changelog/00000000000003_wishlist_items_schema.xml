@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!-- 4. Wishlist Items Table -->
+    <changeSet id="4" author="Ibrahima">
+        <sql dbms="h2, postgresql">
+            CREATE TABLE wishlist_items (
+                                            id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                                            created_at TIMESTAMP NOT NULL,
+                                            updated_at TIMESTAMP NOT NULL,
+                                            deleted_at TIMESTAMP,
+                                            product_id BIGINT NOT NULL,
+                                            user_id BIGINT NOT NULL,
+                                            CONSTRAINT fk_wishlist_product FOREIGN KEY (product_id) REFERENCES products(id),
+                                            CONSTRAINT fk_wishlist_user FOREIGN KEY (user_id) REFERENCES users(id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
