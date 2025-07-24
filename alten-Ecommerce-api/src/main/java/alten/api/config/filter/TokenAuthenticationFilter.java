@@ -13,7 +13,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
-
+/**
+ * Filtre d'authentification JWT exécuté pour chaque requête HTTP.
+ *
+ * - Ignore les routes /users/account et /token (pas besoin de token).
+ * - Récupère le token JWT depuis l'en-tête "Authorization".
+ * - Extrait le nom d'utilisateur à partir du token.
+ * - Vérifie si le token est valide et, si oui, authentifie l'utilisateur dans le contexte de sécurité Spring.
+ */
 @Component
 @Slf4j
 @AllArgsConstructor
@@ -29,7 +36,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String uri = path.substring(contextPath.length());
         String username = null;
 
-        if (uri.equals("/users/account") || uri.equals("/token")) {
+        if (
+                uri.equals("/users/account") ||
+                        uri.equals("/token") ||
+                        uri.equals("/products/all")
+        )
+        {
             filterChain.doFilter(request, response);
             return;
         }

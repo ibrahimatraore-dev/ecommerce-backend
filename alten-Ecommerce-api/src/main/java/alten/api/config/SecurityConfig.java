@@ -24,7 +24,16 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-
+/**
+ * Configuration de la sécurité Spring Security pour l'application.
+ *
+ * - Active la sécurité web et par méthode (@Secured).
+ * - Définit un filtre JWT personnalisé (TokenAuthenticationFilter).
+ * - Désactive CSRF et utilise une session stateless.
+ * - Autorise l'accès public à certaines routes (Swagger, /token, /users/account...).
+ * - Protège toutes les autres routes par authentification.
+ * - Active le CORS avec une configuration permissive (toutes origines, méthodes, headers).
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
@@ -65,6 +74,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/token").permitAll()
                         .requestMatchers("/users/account").permitAll()
+                        .requestMatchers("/products/all").permitAll()
                         .requestMatchers("/**").authenticated()
                 )
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

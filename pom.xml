@@ -13,7 +13,7 @@
     <artifactId>alten-e-commerce</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Noori</name>
+    <name>Alten</name>
 
     <modules>
         <module>alten-Ecommerce-core</module>

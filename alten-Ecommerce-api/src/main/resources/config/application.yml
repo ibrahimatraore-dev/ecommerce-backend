@@ -72,7 +72,7 @@ application:
   jwt_secret: ${JWT_SECRET} # ex. rmfq99uN-@*9%UN^$werg_fewgerw0
 
 springdoc:
-  packages-to-scan: alten-Ecommerce-api.web.rest  # Replace with your package to scan
+  packages-to-scan: alten-Ecommerce-api.web.rest
   paths-to-match: /** # Adjust path matching as needed
 
 server:

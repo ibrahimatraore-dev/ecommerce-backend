@@ -25,7 +25,7 @@ public class JwtTokenUtil {
                 .withSubject(userDetails.getUsername())
                 .withIssuedAt(new Date())
                 .withClaim("role", userDetails.getAuthorities().stream()
-                        .map(GrantedAuthority::getAuthority)  // Convert to List<String>
+                        .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .sign(getAlgorithm());

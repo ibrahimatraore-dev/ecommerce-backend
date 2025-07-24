@@ -19,34 +19,51 @@ public class ProductResourceImpl implements IProductResource {
 
     private final IProductService productService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<Page<ProductResponseDTO>> list(@RequestParam(required = false) String keyword, Pageable pageable) {
-        return ResponseEntity.ok(productService.list(keyword, pageable));
+        log.info("GET /products/all called with keyword='{}'", keyword);
+        Page<ProductResponseDTO> result = productService.list(keyword, pageable);
+        log.info("Returning {} products", result.getTotalElements());
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> get(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.findById(id));
+        log.info("GET /products/{} called", id);
+        ProductResponseDTO response = productService.findById(id);
+        log.info("Found product: {}", response);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO dto) {
-        return new ResponseEntity<>(productService.create(dto), HttpStatus.CREATED);
+        log.info("POST /products called with data: {}", dto);
+        ProductResponseDTO created = productService.create(dto);
+        log.info("Product created: {}", created);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> update(@PathVariable Long id, @RequestBody ProductRequestDTO dto) {
-        return ResponseEntity.ok(productService.update(id, dto));
+        log.info("PUT /products/{} called with data: {}", id, dto);
+        ProductResponseDTO updated = productService.update(id, dto);
+        log.info("Product updated: {}", updated);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.info("DELETE /products/{} called", id);
         productService.delete(id);
+        log.info("Product {} deleted", id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/quantity")
     public ResponseEntity<ProductResponseDTO> updateQuantity(@PathVariable Long id, @RequestParam int quantity) {
-        return ResponseEntity.ok(productService.updateQuantity(id, quantity));
+        log.info("PATCH /products/{}/quantity called with quantity={}", id, quantity);
+        ProductResponseDTO updated = productService.updateQuantity(id, quantity);
+        log.info("Product quantity updated: {}", updated);
+        return ResponseEntity.ok(updated);
     }
 }

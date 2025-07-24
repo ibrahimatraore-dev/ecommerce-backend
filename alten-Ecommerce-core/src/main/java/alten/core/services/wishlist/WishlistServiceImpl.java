@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public class WishlistServiceImpl implements IWishlistService {
     private final IProductMapper productMapper;
     private final ModelMapper modelMapper;
 
+    @Transactional
     @Override
     public void addToWishlist(Long productId) {
         log.info("Adding product {} to wishlist", productId);
@@ -41,6 +43,7 @@ public class WishlistServiceImpl implements IWishlistService {
         log.info("Product {} added to wishlist for user {}", productId, user.getId());
     }
 
+    @Transactional
     @Override
     public void removeFromWishlist(Long productId) {
         Long userId = usersService.getCurrentUser().getId();
@@ -49,6 +52,7 @@ public class WishlistServiceImpl implements IWishlistService {
         log.info("Product {} removed from wishlist for user {}", productId, userId);
     }
 
+    @Transactional
     @Override
     public List<WishlistItemDTO> getWishlist() {
         Long userId = usersService.getCurrentUser().getId();

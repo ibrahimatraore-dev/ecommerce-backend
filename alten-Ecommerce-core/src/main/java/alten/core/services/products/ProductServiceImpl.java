@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
@@ -24,6 +25,7 @@ public class ProductServiceImpl implements IProductService {
     private final IProductMapper productMapper;
     private final IUsersService usersService;
 
+    @Transactional
     @Override
     public ProductResponseDTO create(ProductRequestDTO dto) {
         log.info("Attempting to create product with name: {}", dto.getName());
@@ -36,6 +38,7 @@ public class ProductServiceImpl implements IProductService {
         return productMapper.toResponseDTO(saved);
     }
 
+    @Transactional
     @Override
     public ProductResponseDTO update(Long id, ProductRequestDTO dto) {
         log.info("Attempting to update product with ID: {}", id);
@@ -54,6 +57,7 @@ public class ProductServiceImpl implements IProductService {
         return productMapper.toResponseDTO(saved);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         log.info("Attempting to delete product with ID: {}", id);
@@ -62,12 +66,14 @@ public class ProductServiceImpl implements IProductService {
         log.info("Product with ID {} deleted successfully", id);
     }
 
+    @Transactional
     @Override
     public Page<ProductResponseDTO> list(String keyword, Pageable pageable) {
         log.info("Fetching products with keyword: {}", keyword != null ? keyword : "[none]");
         return productPort.findAll(keyword, pageable).map(productMapper::toResponseDTO);
     }
 
+    @Transactional
     @Override
     public ProductResponseDTO findById(Long id) {
         log.info("Fetching product with ID: {}", id);
@@ -79,6 +85,7 @@ public class ProductServiceImpl implements IProductService {
                 });
     }
 
+    @Transactional
     @Override
     public ProductResponseDTO updateQuantity(Long id, int quantity) {
         log.info("Updating quantity for product ID: {} to {}", id, quantity);

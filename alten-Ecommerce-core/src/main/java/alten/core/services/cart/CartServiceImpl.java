@@ -11,6 +11,7 @@ import alten.core.services.users.IUsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class CartServiceImpl implements ICartService {
     private final IProductMapper productMapper;
     private final IUserMapper userMapper;
 
+    @Transactional
     @Override
     public void addToCart(Long productId, int quantity) {
         log.info("Adding product (ID: {}) to cart with quantity: {}", productId, quantity);
@@ -33,7 +35,7 @@ public class CartServiceImpl implements ICartService {
         cartPort.addToCart(user, product, quantity);
         log.info("Product (ID: {}) added to cart successfully", productId);
     }
-
+    @Transactional
     @Override
     public void removeFromCart(Long productId) {
         log.info("Removing product (ID: {}) from cart", productId);
@@ -42,6 +44,7 @@ public class CartServiceImpl implements ICartService {
         log.info("Product (ID: {}) removed from cart", productId);
     }
 
+    @Transactional
     @Override
     public List<CartItemDTO> getCart() {
         log.info("Fetching cart for current user");
@@ -51,6 +54,7 @@ public class CartServiceImpl implements ICartService {
         return cart;
     }
 
+    @Transactional
     @Override
     public void updateCartItemQuantity(Long productId, int quantity) {
         log.info("Updating quantity for product (ID: {}) to {}", productId, quantity);

@@ -13,7 +13,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
-
+/**
+ * Filtre de sécurité appliqué sur toutes les routes /api/*
+ *
+ * Vérifie que la requête contient une clé d'API valide dans l'en-tête "x-app-api-key".
+ * Si la clé est correcte, la requête continue. Sinon, l'accès est refusé.
+ */
 @WebFilter(urlPatterns = "/api/*")
 @AllArgsConstructor
 public class CheckApiKeyFilter extends GenericFilterBean {

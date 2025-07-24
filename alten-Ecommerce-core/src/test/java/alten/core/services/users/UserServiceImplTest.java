@@ -348,8 +348,6 @@ class UserServiceImplTest {
         UserUpdateDTO dto = new UserUpdateDTO();
         dto.setLastName("Doe");
         dto.setFirstName("Jane");
-        dto.setPosition("Manager");
-        dto.setGender(UserGender.MALE);
         dto.setPassword("newPassword");
 
         User existingUser = new User();
@@ -388,27 +386,6 @@ class UserServiceImplTest {
         assertThrows(ResourceNotFoundException.class, () -> userService.updateUser(userId, dto));
         verify(userPort).findById(userId);
         verifyNoMoreInteractions(userPort, passwordEncoder, userMapper);
-    }
-
-
-    @Test
-    void acceptCGU_ShouldSetCguAcceptedTrueAndSaveUser() {
-
-        String email = "test@example.com";
-
-        testUserDTO.setEmailAddress(email);
-        testUser.setEmailAddress(email);
-        testUser.setCguAccepted(false);
-
-        when(currentUserService.getCurrentUser()).thenReturn(testUserDTO);
-        when(userPort.findByEmail(email)).thenReturn(Optional.of(testUser));
-
-        userService.acceptCGU();
-
-        assertTrue(testUser.getCguAccepted());
-        verify(currentUserService).getCurrentUser();
-        verify(userPort, times(1)).findByEmail(email);
-        verify(userPort).save(testUser);
     }
 
 

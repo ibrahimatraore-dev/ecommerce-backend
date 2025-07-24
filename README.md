@@ -1,8 +1,9 @@
-# Noori (backend - Spring Boot)
+# Alten-Ecommerce (backend - Spring Boot)
 
 ## Prérequis
 
-Le projet est développé en **Java 17** via le framework Spring Boot 2.6.2.
+Le projet est développé en Java 17 avec le framework Spring Boot 2.6.2, 
+en suivant une architecture hexagonale (Clean Architecture).
 
 Il requiert une base de données **Postgresql 14** pour stocker les données.
 
@@ -38,6 +39,7 @@ Le projet peut-être exécuté via Docker en suivant les étapes:
 * ``mvn clean package -Dmaven.test.skip=true``
 * ``docker-compose build``
 * ``docker-compose up -d``
+* ``docker-compose down``
 
 ## Swagger (documentation API)
 
