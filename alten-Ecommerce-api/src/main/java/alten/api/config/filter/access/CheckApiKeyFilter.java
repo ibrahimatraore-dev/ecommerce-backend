@@ -1,5 +1,6 @@
 package alten.api.config.filter.access;
 
+import alten.api.config.Constants;
 import alten.core.ApplicationProperties;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -29,7 +30,7 @@ public class CheckApiKeyFilter extends GenericFilterBean {
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException {
         final HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        String headerKey = httpRequest.getHeader("x-app-api-key");
+        String headerKey = httpRequest.getHeader(Constants.API_KEY);
         if (applicationProperties.getApiKey().equals(headerKey)) {
             filterChain.doFilter(request, response);
         } else {
