@@ -15,6 +15,7 @@ public final class Constants {
     public static final String SPRING_PROFILE_PRODUCTION = "prod";
 
     public static final String API_KEY = "x-app-api-key";
+     public static final String API_URL_FRONT = "http://localhost:4200";
 
     private Constants() {
     }

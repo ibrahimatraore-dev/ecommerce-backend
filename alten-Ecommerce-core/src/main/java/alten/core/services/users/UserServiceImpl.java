@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUsersService {
         user.setEmailAddress(dto.getEmailAddress());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
-        user.setRole(dto.getRole());
+        user.setRole(UserRole.USER);
 
         User savedUser = userPort.save(user);
         log.info("User registered successfully with ID: {}", savedUser.getId());
