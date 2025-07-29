@@ -27,29 +27,8 @@ public class CustomWebMvcConfiguration implements WebMvcConfigurer {
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         for (HttpMessageConverter<?> converter : converters) {
             if (converter instanceof MappingJackson2HttpMessageConverter jacksonConverter) {
-                jacksonConverter.setPrettyPrint(false);
+                jacksonConverter.setPrettyPrint(true);
             }
         }
-    }
-
-    /**
-     * Redirections spécifiques pour que Swagger UI fonctionne correctement
-     * via les routes /api/**.
-     */
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/api/swagger-resources/configuration/ui", "/swagger-resources/configuration/ui");
-        registry.addRedirectViewController("/api/swagger-resources/configuration/security", "/swagger-resources/configuration/security");
-        registry.addRedirectViewController("/api/swagger-resources", "/swagger-resources");
-    }
-
-    /**
-     * Définit où trouver les ressources Swagger (HTML, JS, CSS) côté frontend.
-     * Cela permet de charger correctement l'interface Swagger UI via les routes /api/**.
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/api/swagger-ui.html**").addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
-        registry.addResourceHandler("/api/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

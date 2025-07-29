@@ -3,6 +3,7 @@ package alten.api.resources.cart;
 import alten.core.dtos.cart.CartItemDTO;
 import alten.core.services.cart.ICartService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
+@SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Cart API")
 @AllArgsConstructor
 @Slf4j

@@ -3,6 +3,7 @@ package alten.api.resources.wishlist;
 import alten.core.dtos.wishlist.WishlistItemDTO;
 import alten.core.services.wishlist.IWishlistService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/wishlist")
+@SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Wishlist API")
 @AllArgsConstructor
 @Slf4j

@@ -45,4 +45,6 @@ Le projet peut-être exécuté via Docker en suivant les étapes:
 
 La documentation de l'API est générée via Swagger et est accessible ici :
 
-=> http://localhost:8080/swagger-ui/index.html
+=> http://localhost:8080/api/swagger-ui/index.html
+=> http://localhost:8080/api/v3/api-docs
+

@@ -1,29 +1,29 @@
 management:
   endpoints:
     web:
-      base-path: /actuator
-  endpoint.health.probes.enabled: true
+      base-path: /actuator                 # Les endpoints de monitoring seront accessibles via /api/actuator
+  endpoint.health.probes.enabled: true     # Active les sondes de santé (liveness, readiness) pour Docker / Kubernetes
 spring:
   main:
-    banner-mode: "off"
-    allow-bean-definition-overriding: true
+    banner-mode: "off"                       # désactive l'affichage ASCII "Spring" au démarrage
+    allow-bean-definition-overriding: true   # autorise qu’un bean soit redéfini s’il existe déjà -tests ou surcharges manuelles
   application:
     name: alten
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
+    type: com.zaxxer.hikari.HikariDataSource  #avec HikariCP comme pool de connexions
     url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-    hikari:
+    hikari:                                   # performance des requêtes préparées
       cachePrepStmts: true
       prepStmtCacheSize: 250
       prepStmtCacheSqlLimit: 2048
-      maximumPoolSize: 20
+      maximumPoolSize: 20                       # avec 20 connexions max
       poolName: ALTENJdbcPool
   jpa:
     show-sql: false
     database: POSTGRESQL
-    open-in-view: false
+    open-in-view: false                           # éviter les LazyInitExceptions
     hibernate:
       show-sql: true
       properties:
@@ -32,22 +32,22 @@ spring:
         hibernate.enable_lazy_load_no_trans: true
       ddl-auto: none
       naming:
-        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy    # conversion des noms en snake_case
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
   messages:
-    cache-duration: 1
+    cache-duration: 1                                       # cache des fichiers de traduction
   mvc:
     pathmatch:
       matching-strategy: "ant_path_matcher"
   liquibase:
-    change-log: classpath:/liquibase/db.changelog-master.xml
+    change-log: classpath:/liquibase/db.changelog-master.xml   #exécuter les scripts db.changelog-master.xml au démarrage (migration BDD)
     contexts: dev,prod
   port: 8080
-  compression:
+  compression:                                                 #Active la compression GZIP pour améliorer les performances.
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
     min-response-size: 1024
-  servlet:
+  servlet:                                                    # uploads de fichiers jusqu’à 50 Mo.
     multipart:
       enabled: true
       max-file-size: 50MB
@@ -63,17 +63,16 @@ spring:
 # https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
-application:
-  version: 2.0.24
+application:                                # métadonnées
+  version: 1.0.0
   env: dev
   id_client: ALTEN_LOCAL
   url_base_app: http://localhost
   api_key: test
-  jwt_secret: ${JWT_SECRET} # ex. rmfq99uN-@*9%UN^$werg_fewgerw0
+  jwt_secret: ${JWT_SECRET}                   # ex. rmfq99uN-@*9%UN^$werg_fewgerw0
 
-springdoc:
-  packages-to-scan: alten-Ecommerce-api.web.rest
-  paths-to-match: /** # Adjust path matching as needed
+springdoc:                                    # Swagger
+  paths-to-match: /users/**, /products/**,/token,/wishlist/**,/cart/**
 
 server:
   port: 8080

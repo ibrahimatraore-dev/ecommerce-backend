@@ -74,6 +74,7 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/token").permitAll()
                         .requestMatchers("/users/account").permitAll()
                         .requestMatchers("/products/all").permitAll()

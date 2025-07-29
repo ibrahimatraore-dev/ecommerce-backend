@@ -3,6 +3,7 @@ package alten.api.resources.products;
 import alten.core.dtos.product.ProductRequestDTO;
 import alten.core.dtos.product.ProductResponseDTO;
 import alten.core.services.products.IProductService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 @Slf4j
 public class ProductResourceImpl implements IProductResource {
