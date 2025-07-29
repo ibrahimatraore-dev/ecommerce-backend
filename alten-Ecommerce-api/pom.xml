@@ -36,12 +36,24 @@
     </dependencies>
 
     <build>
-        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.4.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal> <!-- nécessaire pour faire un jar exécutable -->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>alten.api.AltenApp</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
+
 </project>
