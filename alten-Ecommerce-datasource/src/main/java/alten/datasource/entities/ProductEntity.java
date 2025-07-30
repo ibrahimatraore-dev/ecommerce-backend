@@ -24,7 +24,7 @@ public class ProductEntity extends BaseEntity {
     private int quantity;
     private String internalReference;
     private Long shellId;
-    private String inventoryStatus; // INSTOCK | LOWSTOCK | OUTOFSTOCK
+    private String inventoryStatus;
     private double rating;
 }
 

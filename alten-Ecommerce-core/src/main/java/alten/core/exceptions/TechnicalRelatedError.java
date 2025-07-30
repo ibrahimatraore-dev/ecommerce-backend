@@ -3,7 +3,6 @@ package alten.core.exceptions;
 /**
  * Gère les erreurs techniques (utilisé pour les logs).
  *
- * @author e.audrain
  * @since 1.0
  */
 public class TechnicalRelatedError extends RuntimeException {

@@ -1,6 +1,6 @@
 package alten.datasource.entities;
 
-import alten.datasource.entities.enums.UserRole;
+import alten.core.entities.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

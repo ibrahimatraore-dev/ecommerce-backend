@@ -3,12 +3,9 @@ package alten.datasource.adapters;
 import alten.core.entities.User;
 import alten.core.ports.datasources.IUserPort;
 import alten.datasource.entities.UserEntity;
-import alten.datasource.mappers.IUserEntityMapper;
 import alten.datasource.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
